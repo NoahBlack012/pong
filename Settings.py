@@ -6,3 +6,5 @@ class settings:
         self.HEIGHT = 600
         self.bg_col = (0, 0, 0)
         self.player_col = (255, 255, 255)
+        self.ball_col = (255, 255, 255)
+        self.line_col = (255, 255, 255)
