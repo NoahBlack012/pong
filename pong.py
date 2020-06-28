@@ -17,15 +17,18 @@ class Pong:
         pygame.display.set_caption("Pong")
         self.left_player_y = int(self.settings.HEIGHT/2)
         self.right_player_y = int(self.settings.HEIGHT/2)
+        self.left_player_x = int(self.settings.WIDTH/60)
+        self.right_player_x = int(self.settings.WIDTH/60 * 58 + 10)
+
         self.clock = pygame.time.Clock()
         self.FPS = 30
         self.l_change = 0
         self.r_change = 0
-        self.ball_x = self.ball.x
-        self.ball_y = self.ball.y
+        self.game_started = False
 
     def run_game(self):
         """Run the game"""
+        self.ball.reset()
         while True:
             self.clock.tick(self.FPS)
             for event in pygame.event.get():
@@ -48,9 +51,26 @@ class Pong:
             ###Draw items here###
             self.draw.left_player(self.screen, self.left_player_y)
             self.draw.right_player(self.screen, self.right_player_y)
-            self.draw.draw_ball(self.screen, self.ball_x, self.ball_y)
+            self.draw.draw_ball(self.screen, int(self.ball.x), int(self.ball.y))
             self.draw.middle_line(self.screen)
             #####################
+
+            if self.ball.y - self.ball.radius < 0 or self.ball.y + self.ball.radius > self.settings.HEIGHT:
+                self.ball.wall_redirect()
+
+            if self.ball.x - self.ball.radius <= self.left_player_x + self.players.player_width and self.ball.y > self.left_player_y and self.ball.y < self.left_player_y + self.players.player_height:
+                self.ball.paddle_redirect()
+
+            if self.ball.x + self.ball.radius >= self.right_player_x and self.ball.y > self.right_player_y and self.ball.y < self.right_player_y + self.players.player_height:
+                self.ball.paddle_redirect()
+
+            self.ball.move_ball()
+
+            if self.ball.x > self.settings.WIDTH:
+                self.ball.reset()
+
+            if self.ball.x < 0:
+                self.ball.reset()
 
             pygame.display.flip()
 
