@@ -29,6 +29,7 @@ class Pong:
         self.target_score = 5
 
         self.font = pygame.font.Font('freesansbold.ttf', 40)
+        self.explosion_sound = pygame.mixer.Sound(r'C:\Users\Eastb\Documents\Python\pong\explosion.wav')
 
     def run_game(self):
         """Run the game"""
@@ -74,10 +75,12 @@ class Pong:
 
             if self.ball.x > self.settings.WIDTH:
                 self.ball.reset()
+                self.explosion_sound.play()
                 self.players.left_player_score += 1
 
             if self.ball.x < 0:
                 self.ball.reset()
+                self.explosion_sound.play()
                 self.players.right_player_score += 1
 
             if self.players.left_player_score >= self.target_score:
