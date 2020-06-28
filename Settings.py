@@ -8,3 +8,4 @@ class settings:
         self.player_col = (255, 255, 255)
         self.ball_col = (255, 255, 255)
         self.line_col = (255, 255, 255)
+        self.font_col = (255, 255, 255)

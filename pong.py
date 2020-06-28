@@ -9,6 +9,7 @@ class Pong:
     """A class to manage overall settings within the game"""
     def __init__(self):
         pygame.init()
+        pygame.font.init()
         self.settings = settings()
         self.draw = draw()
         self.players = players()
@@ -25,6 +26,9 @@ class Pong:
         self.l_change = 0
         self.r_change = 0
         self.game_started = False
+        self.target_score = 5
+
+        self.font = pygame.font.Font('freesansbold.ttf', 40)
 
     def run_game(self):
         """Run the game"""
@@ -36,19 +40,21 @@ class Pong:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == self.draw.left_player_keys[0]:
-                        self.l_change = -10
+                        self.l_change = -self.players.player_speed
                     if event.key == self.draw.left_player_keys[1]:
-                        self.l_change = 10
+                        self.l_change = self.players.player_speed
                     if event.key == self.draw.right_player_keys[0]:
-                        self.r_change = -10
+                        self.r_change = -self.players.player_speed
                     if event.key == self.draw.right_player_keys[1]:
-                        self.r_change = 10
+                        self.r_change = self.players.player_speed
 
             self.left_player_y, self.right_player_y = self.players.move_players(self.left_player_y, self.right_player_y, self.l_change, self.r_change)
 
             self.screen.fill(self.settings.bg_col)
 
             ###Draw items here###
+            self.draw.right_score(self.screen, self.players.right_player_score, self.settings.font_col, self.font)
+            self.draw.left_score(self.screen, self.players.left_player_score, self.settings.font_col, self.font)
             self.draw.left_player(self.screen, self.left_player_y)
             self.draw.right_player(self.screen, self.right_player_y)
             self.draw.draw_ball(self.screen, int(self.ball.x), int(self.ball.y))
@@ -68,13 +74,25 @@ class Pong:
 
             if self.ball.x > self.settings.WIDTH:
                 self.ball.reset()
+                self.players.left_player_score += 1
 
             if self.ball.x < 0:
                 self.ball.reset()
+                self.players.right_player_score += 1
+
+            if self.players.left_player_score >= self.target_score:
+                break
+
+            if self.players.right_player_score >= self.target_score:
+                break
+
+            if self.players.left_player_score + 1 == self.target_score and self.players.right_player_score + 1 == self.target_score:
+                self.target_score += 1
+
 
             pygame.display.flip()
 
-
+print("the game is over")
 if __name__ == '__main__':
     p = Pong()
     p.run_game()

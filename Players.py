@@ -4,6 +4,10 @@ class players:
         self.settings = settings()
         self.player_width = 10
         self.player_height = 80
+        self.player_speed = 7
+
+        self.left_player_score = 0
+        self.right_player_score = 0
 
     def move_players(self, left_y, right_y, l_change, r_change):
         left_y += l_change

@@ -29,3 +29,11 @@ class draw:
         lines = range(0, self.settings.HEIGHT, int(self.player_height*1.5))
         for line in lines:
             pygame.draw.rect(screen, self.settings.line_col, (int(self.settings.WIDTH/2 - self.player_width/2), int(line), self.player_width, self.player_height))
+
+    def left_score(self, screen, text, col, font):
+        l_score = font.render(str(text), False, col)
+        screen.blit(l_score, (int(self.settings.WIDTH/2 - self.settings.WIDTH/58 * 2), int(self.settings.HEIGHT/60 * 2)))
+
+    def right_score(self, screen, text, col, font):
+        r_score = font.render(str(text), False, col)
+        screen.blit(r_score, (int(self.settings.WIDTH/2 + self.settings.WIDTH/58), int(self.settings.HEIGHT/60 * 2)))

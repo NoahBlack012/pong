@@ -19,10 +19,11 @@ class ball:
             negative_dirs.append(num)
         directions = positive_dirs + negative_dirs
         self.direction = random.choice(directions)
+        if random.randrange(2) == 0:
+            self.direction += 180
         self.x = int(self.settings.WIDTH/2)
         self.y = int(self.settings.HEIGHT/2)
         self.speed = 6
-        print ("reset")
 
     def wall_redirect(self):
         self.direction = (180-self.direction)%360
@@ -31,7 +32,6 @@ class ball:
     def paddle_redirect(self):
         self.direction = -self.direction
         self.speed *= 1.05
-        print ("Paddle")
 
     def move_ball(self):
         """Moves the ball to the current position"""
