@@ -91,11 +91,8 @@ class Pong:
 
             if self.players.left_player_score + 1 == self.target_score and self.players.right_player_score + 1 == self.target_score:
                 self.target_score += 1
-
-
             pygame.display.flip()
 
-print("the game is over")
 if __name__ == '__main__':
     p = Pong()
     p.run_game()

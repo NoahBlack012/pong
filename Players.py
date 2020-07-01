@@ -4,7 +4,7 @@ class players:
         self.settings = settings()
         self.player_width = 10
         self.player_height = 80
-        self.player_speed = 7
+        self.player_speed = 8
 
         self.left_player_score = 0
         self.right_player_score = 0

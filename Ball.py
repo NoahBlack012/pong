@@ -1,14 +1,19 @@
 from Settings import settings
+from Players import players
 import math
 import random
+import pygame
 class ball:
     def __init__(self):
         self.settings = settings()
+        self.players = players()
+        pygame.init()
         self.radius = 10
         self.x = int(self.settings.WIDTH/2)
         self.y = int(self.settings.HEIGHT/2)
-        self.speed = 6
+        self.speed = 8
         self.direction = 0
+        self.bounce_sound = pygame.mixer.Sound(r'C:\Users\Eastb\Documents\Python\pong\blip.wav')
 
     def reset(self):
         positive_dirs = []
@@ -27,9 +32,11 @@ class ball:
 
     def wall_redirect(self):
         self.direction = (180-self.direction)%360
-        self.speed *= 1.05
+        self.speed *= 1.1
+        self.bounce_sound.play()
 
     def paddle_redirect(self):
+        self.bounce_sound.play()
         self.direction = -self.direction
         self.speed *= 1.05
 
