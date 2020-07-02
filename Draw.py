@@ -13,7 +13,6 @@ class draw:
         self.right_player_keys = [pygame.K_UP, pygame.K_DOWN]
         self.left_player_keys = [pygame.K_w, pygame.K_s]
 
-
     def left_player(self, screen, y):
         x = int(self.settings.WIDTH/60)
         pygame.draw.rect(screen, self.settings.player_col, (x, y, self.player_width, self.player_height))

@@ -6,7 +6,6 @@ class menu:
     def __init__(self):
         self.settings = settings()
         pygame.init()
-        pygame.font.init()
         self.exit = False
 
     def draw_title(self, screen, col, font):
