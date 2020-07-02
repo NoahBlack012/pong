@@ -4,6 +4,7 @@ from Settings import settings
 from Draw import draw
 from Players import players
 from Ball import ball
+from Menu import menu
 
 class Pong:
     """A class to manage overall settings within the game"""
@@ -14,6 +15,7 @@ class Pong:
         self.draw = draw()
         self.players = players()
         self.ball = ball()
+        self.menu = menu()
         self.screen = pygame.display.set_mode((self.settings.WIDTH, self.settings.HEIGHT))
         pygame.display.set_caption("Pong")
         self.left_player_y = int(self.settings.HEIGHT/2)
@@ -29,10 +31,19 @@ class Pong:
         self.target_score = 5
 
         self.font = pygame.font.Font('freesansbold.ttf', 40)
+        self.title_font = pygame.font.Font('freesansbold.ttf', 60)
         self.explosion_sound = pygame.mixer.Sound(r'C:\Users\Eastb\Documents\Python\pong\explosion.wav')
 
     def run_game(self):
         """Run the game"""
+        while not self.menu.exit:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+            self.screen.fill(self.settings.bg_col)
+            self.menu.draw_play(self.screen, self.settings.button_text_col, self.title_font)
+            self.menu.draw_title(self.screen, self.settings.font_col, self.title_font)
+            pygame.display.flip()
         self.ball.reset()
         while True:
             self.clock.tick(self.FPS)
@@ -92,6 +103,7 @@ class Pong:
             if self.players.left_player_score + 1 == self.target_score and self.players.right_player_score + 1 == self.target_score:
                 self.target_score += 1
             pygame.display.flip()
+
 
 if __name__ == '__main__':
     p = Pong()

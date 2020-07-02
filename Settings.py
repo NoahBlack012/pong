@@ -9,3 +9,5 @@ class settings:
         self.ball_col = (255, 255, 255)
         self.line_col = (255, 255, 255)
         self.font_col = (255, 255, 255)
+        self.button_col = (255, 255, 255)
+        self.button_text_col = (0, 0, 0)
