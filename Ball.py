@@ -24,7 +24,7 @@ class ball:
             negative_dirs.append(num)
         directions = positive_dirs + negative_dirs
         self.direction = random.choice(directions)
-        if random.randrange(2) == 0:
+        if random.randrange(2) % 2== 0:
             self.direction += 180
         self.x = int(self.settings.WIDTH/2)
         self.y = int(self.settings.HEIGHT/2)
